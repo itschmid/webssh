@@ -54,6 +54,14 @@ Example: --encoding='utf-8' to solve the problem with some switches&routers''')
 define('version', type=bool, help='Show version information',
        callback=print_version)
 
+define('ldap_auth', type=bool, default=False, help="Enable Basic Auth for Frontend")
+define('ldap_host', default='', help="LDAP Host")
+define('ldap_port', type=int, default=389, help="LDAP Port")
+define('ldap_peopledn', default='', help="LDAP Peopledn")
+define('ldap_groupdn', default='', help="LDAP Groupdn")
+
+
+
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 font_dirs = ['webssh', 'static', 'css', 'fonts']
@@ -89,6 +97,15 @@ def get_app_settings(options):
     )
     return settings
 
+def get_ldap_settings(options):
+    settings = dict(
+        ldap_auth=options.ldap_auth,
+        ldap_host=options.ldap_host,
+        ldap_port=options.ldap_port,
+        ldap_peopledn=options.ldap_peopledn,
+        ldap_groupdn=options.ldap_groupdn
+    )
+    return settings
 
 def get_server_settings(options):
     settings = dict(
